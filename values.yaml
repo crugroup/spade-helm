@@ -1,0 +1,53 @@
+docker:
+  spade:
+    image: azmcrudata.azurecr.io/crugroup/spadekit
+    tag: develop
+  spadeUI:
+    image: azmcrudata.azurecr.io/crugroup/spadeui
+    tag: develop
+
+
+spade:
+  django:
+    allowedHosts: backend
+    adminUrl: admin/
+    collectFastStrategy: collectfast.strategies.filesystem.FileSystemStrategy
+    settingsModule: config.settings.production
+    ssl:
+      redirect: False
+    secretKey: Srxt2kGXi0ErSF1ApgK5ZJyMDNHyetTLbaa67tPitMtl9cdpkwnDTTDZCjsGDlIO
+    fieldEncryptionKey: SFlac1ZScXpYQ1c4dWl6ZVFrWks5R3drOUhJakpPdHI=
+
+  nodeSelector: {}
+  resources: {}
+
+spadeUI:
+  webserver:
+    publicDomain: https://frontend
+  nodeSelector: {}
+  resources: {}
+
+worker:
+  replicas: 1
+  nodeSelector: {}
+  resources: {}
+
+ingress:
+  spade:
+    path: "/"
+    host: backend
+    annotations: {}
+  spadeUI:
+    path: "/"
+    host: frontend
+    annotations: {}
+
+postgresql:
+  enabled: false
+  auth:
+    username: spade
+    database: spade
+    password: 3zLFpL6PVRHtBL91rM6ST24faVJU8a6z
+
+  service:
+    port: 5432
