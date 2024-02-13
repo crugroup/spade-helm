@@ -1,0 +1,11 @@
+apiVersion: v1
+description: Spade + Spade UI
+name: spade
+type: application
+version: 0.0.1
+appVersion: 0.1.0
+dependencies:
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    version: 14.0.4
+    condition: postgresql.enabled

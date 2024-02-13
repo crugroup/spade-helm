@@ -1,0 +1,35 @@
+{{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1
+{{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: extensions/v1beta1
+{{- end }}
+kind: Ingress
+metadata:
+  name: spade-web
+  labels:
+    app: {{ template "spade.name" . }}
+    component: spade-web
+    release: {{ .Release.Name }}
+  annotations:
+    {{ range $key, $value := .Values.ingress.spade.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: {{ .Values.ingress.spade.path }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: spade-web
+                port: 
+                  name: spade
+      host: {{ .Values.ingress.spade.host }}
+  tls:
+    - hosts:
+        - spade-backend-dev.crugroup.com
+      secretName: spade-tls

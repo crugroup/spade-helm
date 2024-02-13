@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spade
+  labels:
+    app: {{ template "spade.name" . }}
+    component: spade
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.worker.replicas }}
+  strategy: {}
+  selector:
+    matchLabels:
+      app: {{ template "spade.name" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/spade-configmap: {{ include (print $.Template.BasePath "/django-configmap.yaml") . | sha256sum }}
+      labels:
+        app: {{ template "spade.name" . }}
+        component: spade
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - args:
+        - /start
+        envFrom:
+          - configMapRef:
+              name: "{{ template "spade.name" . }}-env"
+        image: {{ template "spade.image" . }}
+        imagePullPolicy: Always
+        name: spade
+        tty: true
+        stdin: true
+        ports:
+        - name: spade
+          containerPort: 5000
+          protocol: TCP
+        resources:
+{{ toYaml .Values.spade.resources | indent 10 }}
+      restartPolicy: Always
+      {{- if .Values.spade.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.spade.nodeSelector | indent 8 }}
+      {{- end }}
+status: {}

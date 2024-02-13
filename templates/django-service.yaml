@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "spade.name" . }}-web
+  labels:
+    app: {{ template "spade.name" . }}
+    component: {{ template "spade.name" . }}-web
+    release: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ template "spade.name" . }}
+    component: spade
+    release: {{ .Release.Name }}
+  ports:
+  - name: spade
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+status:
+  loadBalancer: {}

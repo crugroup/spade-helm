@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ template "spade.name" . }}-ui"
+  labels:
+    app: {{ template "spade.name" . }}
+    component: "{{ template "spade.name" . }}-ui"
+    release: {{ .Release.Name }}
+spec:
+  replicas: 1
+  strategy: {}
+  selector:
+    matchLabels:
+      app: {{ template "spade.name" . }}
+  template:
+    metadata:
+      annotations:
+        checksum/spade-configmap: {{ include (print $.Template.BasePath "/django-configmap.yaml") . | sha256sum }}
+      labels:
+        app: {{ template "spade.name" . }}
+        component: "{{ template "spade.name" . }}-ui"
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - args:
+        envFrom:
+          - configMapRef:
+              name: "{{ template "spade.name" . }}-env"
+        image: {{ template "spadeUI.image" . }}
+        imagePullPolicy: Always
+        name: "{{ template "spade.name" . }}-ui"
+        ports:
+        - name: ui
+          containerPort: 80
+          protocol: TCP
+        resources:
+{{ toYaml .Values.spadeUI.resources | indent 10 }}
+      restartPolicy: Always
+      {{- if .Values.spadeUI.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.spadeUI.nodeSelector | indent 8 }}
+      {{- end }}
+status: {}

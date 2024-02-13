@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "spade.name" . }}-env"
+  labels:
+    app: spade
+data:
+  POSTGRES_HOST: "{{ template "spade.postgresql.host" . }}"
+  POSTGRES_USER: "{{ .Values.postgresql.auth.username }}"
+  POSTGRES_PORT: "{{ .Values.postgresql.service.port }}"
+  POSTGRES_DB: "{{ .Values.postgresql.auth.database }}"
+  POSTGRES_PASSWORD: "{{ .Values.postgresql.auth.password }}"
+  DJANGO_ADMIN_URL: "{{ .Values.spade.django.adminUrl }}"
+  DJANGO_ALLOWED_HOSTS: "{{ .Values.spade.django.allowedHosts }}"
+  FRONTEND_EXTERNAL_URL: "{{ .Values.spadeUI.webserver.publicDomain }}"
+  DATABASE_URL: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ template "spade.postgresql.host" . }}:{{ .Values.postgresql.service.port }}/{{ .Values.postgresql.auth.database }}"
+  DJANGO_COLLECTFAST_STRATEGY: "{{ .Values.spade.django.collectFastStrategy }}"
+  DJANGO_SECRET_KEY: "{{ .Values.spade.django.secretKey }}"
+  DJANGO_SETTINGS_MODULE: "{{ .Values.spade.django.settingsModule }}"
+  DJANGO_SECURE_SSL_REDIRECT: "{{ .Values.spade.django.ssl.redirect }}"
+  FIELD_ENCRYPTION_KEY: "{{ .Values.spade.django.fieldEncryptionKey }}"
+  {{- range $setting, $option := .Values.environment }}
+  {{ $setting }}: "{{ $option }}"
+  {{- end }}

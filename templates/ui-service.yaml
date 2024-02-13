@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ template "spade.name" . }}-ui"
+  labels:
+    app: {{ template "spade.name" . }}
+    component: "{{ template "spade.name" . }}-ui"
+    release: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ template "spade.name" . }}
+    component: spade-ui
+    release: {{ .Release.Name }}
+  ports:
+  - name: ui
+    protocol: TCP
+    port: 80
+    targetPort: 80
+status:
+  loadBalancer: {}
