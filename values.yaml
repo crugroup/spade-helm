@@ -33,6 +33,7 @@ worker:
   resources: {}
 
 ingress:
+  className: nginx
   spade:
     path: "/"
     host: backend
