@@ -1,10 +1,10 @@
 docker:
   spade:
-    image: azmcrudata.azurecr.io/crugroup/spadekit
-    tag: develop
+    image: ghcr.io/crugroup/spadekit
+    tag: latest
   spadeUI:
-    image: azmcrudata.azurecr.io/crugroup/spadeui
-    tag: develop
+    image: ghcr.io/crugroup/spadeui
+    tag: latest
 
 
 spade:
