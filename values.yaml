@@ -17,13 +17,16 @@ spade:
       redirect: False
     secretKey: Srxt2kGXi0ErSF1ApgK5ZJyMDNHyetTLbaa67tPitMtl9cdpkwnDTTDZCjsGDlIO
     fieldEncryptionKey: SFlac1ZScXpYQ1c4dWl6ZVFrWks5R3drOUhJakpPdHI=
-
+  
+  pullPolicy: Always
   nodeSelector: {}
   resources: {}
 
 spadeUI:
   webserver:
     publicDomain: https://frontend
+  
+  pullPolicy: Always
   nodeSelector: {}
   resources: {}
 

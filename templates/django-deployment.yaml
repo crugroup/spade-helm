@@ -28,7 +28,7 @@ spec:
           - configMapRef:
               name: "{{ template "spade.name" . }}-env"
         image: {{ template "spade.image" . }}
-        imagePullPolicy: Always
+        imagePullPolicy: {{ .Values.spade.pullPolicy }}
         name: spade
         tty: true
         stdin: true
