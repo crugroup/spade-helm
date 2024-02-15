@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/spade-configmap: {{ include (print $.Template.BasePath "/django-configmap.yaml") . | sha256sum }}
+        checksum/spade-configmap: {{ include (print $.Template.BasePath "/ui-configmap.yaml") . | sha256sum }}
       labels:
         app: {{ template "spade.name" . }}
         component: "{{ template "spade.name" . }}-ui"

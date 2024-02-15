@@ -9,6 +9,7 @@ docker:
 
 spade:
   django:
+    apiUrl: https://backend/api/v1
     allowedHosts: backend
     adminUrl: admin/
     collectFastStrategy: collectfast.strategies.filesystem.FileSystemStrategy
