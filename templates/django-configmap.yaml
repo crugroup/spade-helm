@@ -13,7 +13,6 @@ data:
   DJANGO_ADMIN_URL: "{{ .Values.spade.django.adminUrl }}"
   DJANGO_ALLOWED_HOSTS: "{{ .Values.spade.django.allowedHosts }}"
   FRONTEND_EXTERNAL_URL: "{{ .Values.spadeUI.webserver.publicDomain }}"
-  DATABASE_URL: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ template "spade.postgresql.host" . }}:{{ .Values.postgresql.service.port }}/{{ .Values.postgresql.auth.database }}"
   DJANGO_COLLECTFAST_STRATEGY: "{{ .Values.spade.django.collectFastStrategy }}"
   DJANGO_SECRET_KEY: "{{ .Values.spade.django.secretKey }}"
   DJANGO_SETTINGS_MODULE: "{{ .Values.spade.django.settingsModule }}"
