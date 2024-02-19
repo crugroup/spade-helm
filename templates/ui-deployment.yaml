@@ -26,6 +26,11 @@ spec:
         envFrom:
           - configMapRef:
               name: "{{ template "spade.name" . }}-env"
+        env:
+          {{- range .Values.spadeUI.env }}
+          - name: {{ .name }}
+            value: {{ .value | quote }}
+          {{- end }}
         image: {{ template "spadeUI.image" . }}
         imagePullPolicy: {{ .Values.spadeUI.pullPolicy }}
         name: "{{ template "spade.name" . }}-ui"

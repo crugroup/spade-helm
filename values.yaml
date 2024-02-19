@@ -8,6 +8,7 @@ docker:
 
 
 spade:
+  env: []
   django:
     adminUrl: admin/
     collectFastStrategy: collectfast.strategies.filesystem.FileSystemStrategy
@@ -23,6 +24,7 @@ spade:
 
 
 spadeUI:
+  env: []
   pullPolicy: Always
   nodeSelector: {}
   resources: {}
