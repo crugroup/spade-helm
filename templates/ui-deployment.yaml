@@ -27,6 +27,8 @@ spec:
           - configMapRef:
               name: "{{ template "spade.name" . }}-env"
         env:
+          - name: VITE_BACKEND_BASE_URL
+            value: "https://{{ .Values.ingress.spade.host }}/api/v1"
           {{- range .Values.spadeUI.env }}
           - name: {{ .name }}
             value: {{ .value | quote }}
