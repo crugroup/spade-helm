@@ -5,7 +5,7 @@ metadata:
   labels:
     app: "{{ template "spade.name" . }}-ui"
 data:
-  VITE_BACKEND_BASE_URL: "{{ .Values.spade.django.apiUrl }}"
+  VITE_BACKEND_BASE_URL: "https://{{ .Values.ingress.spade.host }}/api/v1"
   {{- range $setting, $option := .Values.environment }}
   {{ $setting }}: "{{ $option }}"
   {{- end }}

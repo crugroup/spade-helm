@@ -9,8 +9,6 @@ docker:
 
 spade:
   django:
-    apiUrl: https://backend/api/v1
-    allowedHosts: backend
     adminUrl: admin/
     collectFastStrategy: collectfast.strategies.filesystem.FileSystemStrategy
     settingsModule: config.settings.production
@@ -23,10 +21,8 @@ spade:
   nodeSelector: {}
   resources: {}
 
+
 spadeUI:
-  webserver:
-    publicDomain: https://frontend
-  
   pullPolicy: Always
   nodeSelector: {}
   resources: {}
