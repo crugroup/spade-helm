@@ -11,7 +11,7 @@ data:
   POSTGRES_DB: "{{ .Values.postgresql.auth.database }}"
   POSTGRES_PASSWORD: "{{ .Values.postgresql.auth.password }}"
   DJANGO_ADMIN_URL: "{{ .Values.spade.django.adminUrl }}"
-  DJANGO_ALLOWED_HOSTS: "https://{{ .Values.ingress.spade.host }}"
+  DJANGO_ALLOWED_HOSTS: "{{ .Values.ingress.spade.host }}"
   FRONTEND_EXTERNAL_URL: "https://{{ .Values.ingress.spadeUI.host }}"
   DJANGO_COLLECTFAST_STRATEGY: "{{ .Values.spade.django.collectFastStrategy }}"
   DJANGO_SECRET_KEY: "{{ .Values.spade.django.secretKey }}"
