@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ template "spade.name" . }}-ui-env"
+  labels:
+    app: spade-ui
+data:
+  VITE_BACKEND_BASE_URL: "https://{{ .Values.ingress.spade.host }}/api/v1"
+  {{- range $setting, $option := .Values.environment }}
+  {{ $setting }}: "{{ $option }}"
+  {{- end }}
