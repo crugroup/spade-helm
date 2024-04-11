@@ -18,3 +18,11 @@
     {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "spade.emailHost" -}}
+{{- if .Values.ingress.spade.host }}
+    {{- .Values.ingress.spade.host -}}
+{{- else }}
+    spade.local
+{{- end -}}
+{{- end -}}

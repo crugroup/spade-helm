@@ -17,6 +17,7 @@ data:
   DJANGO_SECRET_KEY: "{{ .Values.spade.django.secretKey }}"
   DJANGO_SETTINGS_MODULE: "{{ .Values.spade.django.settingsModule }}"
   DJANGO_SECURE_SSL_REDIRECT: "{{ .Values.spade.django.ssl.redirect }}"
+  DJANGO_SITE_DOMAIN: "{{ template "spade.emailHost" . }}"
   FIELD_ENCRYPTION_KEY: "{{ .Values.spade.django.fieldEncryptionKey }}"
   {{- range $setting, $option := .Values.environment }}
   {{ $setting }}: "{{ $option }}"
