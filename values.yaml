@@ -11,6 +11,7 @@ spade:
   env: []
   django:
     adminUrl: admin/
+    allowedHosts: ""
     collectFastStrategy: collectfast.strategies.filesystem.FileSystemStrategy
     settingsModule: config.settings.production
     ssl:
