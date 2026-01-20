@@ -20,7 +20,7 @@ spec:
             backend:
               service:
                 name: spade-ui
-                port: 
+                port:
                   name: ui
       host: {{ .Values.ingress.spadeUI.host }}
   tls:

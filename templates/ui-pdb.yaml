@@ -1,0 +1,11 @@
+{{- if .Values.spadeUI.podDisruptionBudget.enabled }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ template "spade.name" . }}-ui-pdb
+spec:
+  minAvailable: {{ .Values.spadeUI.podDisruptionBudget.config.minAvailable }}
+  selector:
+    matchLabels:
+      component: spade-ui
+{{- end }}

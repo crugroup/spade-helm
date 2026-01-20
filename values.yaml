@@ -18,10 +18,14 @@ spade:
       redirect: False
     secretKey: Srxt2kGXi0ErSF1ApgK5ZJyMDNHyetTLbaa67tPitMtl9cdpkwnDTTDZCjsGDlIO
     fieldEncryptionKey: SFlac1ZScXpYQ1c4dWl6ZVFrWks5R3drOUhJakpPdHI=
-  
+
   pullPolicy: Always
   nodeSelector: {}
   resources: {}
+  podDisruptionBudget:
+    enabled: false
+    config:
+      minAvailable: 1
 
 
 spadeUI:
@@ -29,6 +33,10 @@ spadeUI:
   pullPolicy: Always
   nodeSelector: {}
   resources: {}
+  podDisruptionBudget:
+    enabled: false
+    config:
+      minAvailable: 1
 
 worker:
   replicas: 1
