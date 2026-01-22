@@ -20,6 +20,7 @@ spade:
     fieldEncryptionKey: SFlac1ZScXpYQ1c4dWl6ZVFrWks5R3drOUhJakpPdHI=
 
   pullPolicy: Always
+  priorityClassName: ""
   nodeSelector: {}
   resources: {}
   podDisruptionBudget:
@@ -31,6 +32,7 @@ spade:
 spadeUI:
   env: []
   pullPolicy: Always
+  priorityClassName: ""
   nodeSelector: {}
   resources: {}
   podDisruptionBudget:
