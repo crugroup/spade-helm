@@ -48,4 +48,5 @@ spec:
       nodeSelector:
 {{ toYaml .Values.spade.nodeSelector | indent 8 }}
       {{- end }}
+      priorityClassName: {{ .Values.spade.priorityClassName | quote }}
 status: {}
