@@ -22,6 +22,8 @@ spade:
   pullPolicy: Always
   priorityClassName: ""
   nodeSelector: {}
+  affinity: {}
+  tolerations: []
   resources: {}
   podDisruptionBudget:
     enabled: false
@@ -34,6 +36,8 @@ spadeUI:
   pullPolicy: Always
   priorityClassName: ""
   nodeSelector: {}
+  affinity: {}
+  tolerations: []
   resources: {}
   podDisruptionBudget:
     enabled: false
