@@ -48,13 +48,13 @@ spec:
       nodeSelector:
 {{ toYaml .Values.spade.nodeSelector | indent 8 }}
       {{- end }}
-      {{- with .Values.spade.affinity }}
+      {{- if .Values.spade.affinity }}
       affinity:
-    {{ toYaml . | indent 8 }}
+{{ toYaml .Values.spade.affinity | indent 8 }}
       {{- end }}
-      {{- with .Values.spade.tolerations }}
+      {{- if .Values.spade.tolerations }}
       tolerations:
-    {{ toYaml . | indent 8 }}
+{{ toYaml .Values.spade.tolerations | indent 8 }}
       {{- end }}
       priorityClassName: {{ .Values.spade.priorityClassName | quote }}
 status: {}
