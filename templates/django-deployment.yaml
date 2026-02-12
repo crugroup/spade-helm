@@ -30,7 +30,13 @@ spec:
         env:
           {{- range .Values.spade.env }}
           - name: {{ .name }}
+            {{- if .externalSecret }}
+            valueFrom:
+              secretName: {{ .secretName | quote }}
+              secretKey: {{ .secretKey| quote }}
+            {{- else }}
             value: {{ .value | quote }}
+            {{- end }}
           {{- end }}
         image: {{ template "spade.image" . }}
         imagePullPolicy: {{ .Values.spade.pullPolicy }}
