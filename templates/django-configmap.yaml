@@ -9,20 +9,20 @@ data:
   POSTGRES_USER: "{{ .Values.postgresql.auth.username }}"
   POSTGRES_PORT: "{{ .Values.postgresql.service.port }}"
   POSTGRES_DB: "{{ .Values.postgresql.auth.database }}"
-  {{- if .Values.postgresql.auth.password.externalSecret }}
+  {{- if not .Values.postgresql.auth.password.externalSecret }}
   POSTGRES_PASSWORD: "{{ .Values.postgresql.auth.password.value }}"
   {{- end }}
   DJANGO_ADMIN_URL: "{{ .Values.spade.django.adminUrl }}"
   DJANGO_ALLOWED_HOSTS: "{{ .Values.ingress.spade.host }}{{ if .Values.spade.django.allowedHosts }},{{ .Values.spade.django.allowedHosts }}{{ end }}"
   FRONTEND_EXTERNAL_URL: "https://{{ .Values.ingress.spadeUI.host }}"
   DJANGO_COLLECTFAST_STRATEGY: "{{ .Values.spade.django.collectFastStrategy }}"
-  {{- if .Values.spade.django.secretKey.externalSecret }}
+  {{- if not .Values.spade.django.secretKey.externalSecret }}
   DJANGO_SECRET_KEY: "{{ .Values.spade.django.secretKey.value }}"
   {{- end }}
   DJANGO_SETTINGS_MODULE: "{{ .Values.spade.django.settingsModule }}"
   DJANGO_SECURE_SSL_REDIRECT: "{{ .Values.spade.django.ssl.redirect }}"
   DJANGO_SITE_DOMAIN: "{{ .Values.ingress.spadeUI.host }}"
-  {{- if .Values.spade.django.fieldEncryptionKey.externalSecret }}
+  {{- if not .Values.spade.django.fieldEncryptionKey.externalSecret }}
   FIELD_ENCRYPTION_KEY: "{{ .Values.spade.django.fieldEncryptionKey.value }}"
   {{- end }}
   {{- range $setting, $option := .Values.environment }}
