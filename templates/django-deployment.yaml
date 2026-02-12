@@ -31,27 +31,31 @@ spec:
           {{- if .Values.postgresql.auth.password.externalSecret }}
           - name: POSTGRES_PASSWORD
             valueFrom:
-              secretName: {{ .Values.postgresql.auth.password.secretName | quote }}
-              secretKey: {{ .Values.postgresql.auth.password.secretKey | quote }}
+              secretKeyRef:
+                name: {{ .Values.postgresql.auth.password.secretName | quote }}
+                key: {{ .Values.postgresql.auth.password.secretKey | quote }}
           {{- end }}
           {{- if .Values.spade.django.secretKey.externalSecret }}
           - name: DJANGO_SECRET_KEY
             valueFrom:
-              secretName: {{ .Values.spade.django.secretKey.secretName | quote }}
-              secretKey: {{ .Values.spade.django.secretKey.secretKey | quote }}
+              secretKeyRef:
+                name: {{ .Values.spade.django.secretKey.secretName | quote }}
+                key: {{ .Values.spade.django.secretKey.secretKey | quote }}
           {{- end }}
           {{- if .Values.spade.django.fieldEncryptionKey.externalSecret }}
           - name: FIELD_ENCRYPTION_KEY
             valueFrom:
-              secretName: {{ .Values.spade.django.fieldEncryptionKey.secretName | quote }}
-              secretKey: {{ .Values.spade.django.fieldEncryptionKey.secretKey | quote }}
+              secretKeyRef:
+                name: {{ .Values.spade.django.fieldEncryptionKey.secretName | quote }}
+                key: {{ .Values.spade.django.fieldEncryptionKey.secretKey | quote }}
           {{- end }}
           {{- range .Values.spade.env }}
           - name: {{ .name }}
             {{- if .externalSecret }}
             valueFrom:
-              secretName: {{ .secretName | quote }}
-              secretKey: {{ .secretKey| quote }}
+              secretKeyRef:
+                name: {{ .secretName | quote }}
+                key: {{ .secretKey| quote }}
             {{- else }}
             value: {{ .value | quote }}
             {{- end }}
