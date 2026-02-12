@@ -28,6 +28,24 @@ spec:
           - configMapRef:
               name: "{{ template "spade.name" . }}-env"
         env:
+          {{- if .Values.postgresql.auth.password.externalSecret }}
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretName: {{ .Values.postgresql.auth.password.secretName | quote }}
+              secretKey: {{ .Values.postgresql.auth.password.secretKey | quote }}
+          {{- end }}
+          {{- if .Values.spade.django.secretKey.externalSecret }}
+          - name: DJANGO_SECRET_KEY
+            valueFrom:
+              secretName: {{ .Values.spade.django.secretKey.secretName | quote }}
+              secretKey: {{ .Values.spade.django.secretKey.secretKey | quote }}
+          {{- end }}
+          {{- if .Values.spade.django.fieldEncryptionKey.externalSecret }}
+          - name: FIELD_ENCRYPTION_KEY
+            valueFrom:
+              secretName: {{ .Values.spade.django.fieldEncryptionKey.secretName | quote }}
+              secretKey: {{ .Values.spade.django.fieldEncryptionKey.secretKey | quote }}
+          {{- end }}
           {{- range .Values.spade.env }}
           - name: {{ .name }}
             {{- if .externalSecret }}
