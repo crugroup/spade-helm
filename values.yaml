@@ -8,7 +8,14 @@ docker:
 
 
 spade:
-  env: []
+  env:
+    - name: foo
+      externalSecret: false
+      value: bar
+    - name: baz
+      externalSecret: true
+      secretName: spade-secrets
+      secretKey: qux
   django:
     adminUrl: admin/
     allowedHosts: ""
@@ -16,12 +23,19 @@ spade:
     settingsModule: config.settings.production
     ssl:
       redirect: False
-    secretKey: Srxt2kGXi0ErSF1ApgK5ZJyMDNHyetTLbaa67tPitMtl9cdpkwnDTTDZCjsGDlIO
-    fieldEncryptionKey: SFlac1ZScXpYQ1c4dWl6ZVFrWks5R3drOUhJakpPdHI=
+    secretKey:
+      externalSecret: false
+      value: Srxt2kGXi0ErSF1ApgK5ZJyMDNHyetTLbaa67tPitMtl9cdpkwnDTTDZCjsGDlIO
+    fieldEncryptionKey:
+      externalSecret: true
+      secretName: spade-secrets
+      secretKey: django-field-encryption-key
 
   pullPolicy: Always
   priorityClassName: ""
   nodeSelector: {}
+  affinity: {}
+  tolerations: []
   resources: {}
   podDisruptionBudget:
     enabled: false
@@ -34,6 +48,8 @@ spadeUI:
   pullPolicy: Always
   priorityClassName: ""
   nodeSelector: {}
+  affinity: {}
+  tolerations: []
   resources: {}
   podDisruptionBudget:
     enabled: false
@@ -62,7 +78,9 @@ postgresql:
   auth:
     username: spade
     database: spade
-    password: 3zLFpL6PVRHtBL91rM6ST24faVJU8a6z
+    password:
+      externalSecret: false
+      value: 3zLFpL6PVRHtBL91rM6ST24faVJU8a6z
 
   service:
     port: 5432

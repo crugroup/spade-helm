@@ -22,6 +22,8 @@ A Helm chart for Spade with Spade UI
 |spade.pullPolicy                      |string|`"Always"`                                                        |Pull policy for spade backend container                             |
 |spade.priorityClassName               |string|`""`                                                              |PriorityClassName for the spade backend pods                        |
 |spade.nodeSelector                    |object|`{}`                                                               |Node selector for spade backend pods                                |
+|spade.affinity                        |object|`{}`                                                               |Affinity rules for the spade backend pods                           |
+|spade.tolerations                     |list  |`[]`                                                               |Tolerations for the spade backend pods                              |
 |spade.resources                       |object|`{}`                                                               |Resource requests/limits for spade backend pods                     |
 |spade.podDisruptionBudget.enabled     |bool  |`false`                                                           |Whether to create a PodDisruptionBudget for spade backend           |
 |spade.podDisruptionBudget.config      |object|`{"minAvailable": 1}`                                             |PodDisruptionBudget spec for spade backend                          |
@@ -29,6 +31,8 @@ A Helm chart for Spade with Spade UI
 |spadeUI.pullPolicy                    |string|`"Always"`                                                        |Pull policy for spade frontend container                            |
 |spadeUI.priorityClassName             |string|`""`                                                              |PriorityClassName for the spade UI pods                             |
 |spadeUI.nodeSelector                  |object|`{}`                                                               |Node selector for spade UI pods                                     |
+|spadeUI.affinity                      |object|`{}`                                                               |Affinity rules for the spade UI pods                                |
+|spadeUI.tolerations                   |list  |`[]`                                                               |Tolerations for the spade UI pods                                   |
 |spadeUI.resources                     |object|`{}`                                                               |Resource requests/limits for spade UI pods                          |
 |spadeUI.podDisruptionBudget.enabled   |bool  |`false`                                                           |Whether to create a PodDisruptionBudget for spade UI                |
 |spadeUI.podDisruptionBudget.config    |object|`{"minAvailable": 1}`                                             |PodDisruptionBudget spec for spade UI                               |
