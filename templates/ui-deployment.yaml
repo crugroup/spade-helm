@@ -8,6 +8,7 @@ metadata:
     release: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.spadeUI.replicas }}
+  revisionHistoryLimit: {{ .Values.spadeUI.revisionHistoryLimit }}
   strategy: {}
   selector:
     matchLabels:

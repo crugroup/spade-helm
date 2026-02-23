@@ -38,6 +38,7 @@ spade:
   tolerations: []
   resources: {}
   replicas: 1
+  revisionHistoryLimit: 3
   podDisruptionBudget:
     enabled: false
     config:
@@ -53,6 +54,7 @@ spadeUI:
   tolerations: []
   resources: {}
   replicas: 1
+  revisionHistoryLimit: 3
   podDisruptionBudget:
     enabled: false
     config:
