@@ -35,10 +35,10 @@ A Helm chart for Spade with Spade UI
 |spadeUI.tolerations                   |list  |`[]`                                                               |Tolerations for the spade UI pods                                   |
 |spadeUI.resources                     |object|`{}`                                                               |Resource requests/limits for spade UI pods                          |
 |spadeUI.podDisruptionBudget.enabled   |bool  |`false`                                                           |Whether to create a PodDisruptionBudget for spade UI                |
-|spadeUI.podDisruptionBudget.config    |object|`{"minAvailable": 1}`                                             |PodDisruptionBudget spec for spade UI                               |
-|worker.replicas                       |int   |`1`                                                                |Number of worker replicas                                           |
-|worker.nodeSelector                   |object|`{}`                                                               |Node selector for worker pods                                       |
-|worker.resources                      |object|`{}`                                                               |Resource requests/limits for worker pods                            |
+|spadeUI.podDisruptionBudget.config    |object|`{"minAvailable": 1}`                                              |PodDisruptionBudget spec for spade UI                               |
+|spade.replicas                        |int   |`1`                                                                |Number of spade backend replicas                                    |
+|spade.nodeSelector                    |object|`{}`                                                               |Node selector for spade backend pods                                |
+|spade.resources                       |object|`{}`                                                              |Resource requests/limits for spade backend pods                     |
 |ingress.className                     |string|`"nginx"`                                                         |Ingress class to use                                                |
 |ingress.spade.path                    |string|`"/"`                                                             |Path for spade backend ingress                                      |
 |ingress.spade.host                    |string|`"backend"`                                                       |Host for spade backend ingress                                      |

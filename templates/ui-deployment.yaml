@@ -7,7 +7,7 @@ metadata:
     component: "{{ template "spade.name" . }}-ui"
     release: {{ .Release.Name }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.spadeUI.replicas }}
   strategy: {}
   selector:
     matchLabels:
