@@ -23,26 +23,21 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-      - args: []
-        envFrom:
-          - configMapRef:
-              name: "{{ template "spade.name" . }}-env"
-        env:
-          - name: VITE_BACKEND_BASE_URL
-            value: "https://{{ .Values.ingress.spade.host }}/api/v1"
-          {{- range .Values.spadeUI.env }}
-          - name: {{ .name }}
-            value: {{ .value | quote }}
-          {{- end }}
-        image: {{ template "spadeUI.image" . }}
-        imagePullPolicy: {{ .Values.spadeUI.pullPolicy }}
-        name: "{{ template "spade.name" . }}-ui"
-        ports:
-          - name: ui
-            containerPort: 80
-            protocol: TCP
-        resources:
-{{ toYaml .Values.spadeUI.resources | indent 10 }}
+        - args: []
+          envFrom:
+            - configMapRef:
+                name: "{{ template "spade.name" . }}-env"
+          env:
+{{ include "spadeUI.env" . | indent 12 }}
+          image: {{ template "spadeUI.image" . }}
+          imagePullPolicy: {{ .Values.spadeUI.pullPolicy }}
+          name: "{{ template "spade.name" . }}-ui"
+          ports:
+            - name: ui
+              containerPort: 80
+              protocol: TCP
+          resources:
+{{ toYaml .Values.spadeUI.resources | indent 12 }}
       restartPolicy: Always
       {{- if .Values.spadeUI.nodeSelector }}
       nodeSelector:

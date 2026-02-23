@@ -23,105 +23,43 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-      - args:
-          - start
-        envFrom:
-          - configMapRef:
-              name: "{{ template "spade.name" . }}-env"
-        env:
-          {{- if .Values.postgresql.auth.password.externalSecret }}
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.postgresql.auth.password.secretName | quote }}
-                key: {{ .Values.postgresql.auth.password.secretKey | quote }}
-          {{- end }}
-          {{- if .Values.spade.django.secretKey.externalSecret }}
-          - name: DJANGO_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.spade.django.secretKey.secretName | quote }}
-                key: {{ .Values.spade.django.secretKey.secretKey | quote }}
-          {{- end }}
-          {{- if .Values.spade.django.fieldEncryptionKey.externalSecret }}
-          - name: FIELD_ENCRYPTION_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.spade.django.fieldEncryptionKey.secretName | quote }}
-                key: {{ .Values.spade.django.fieldEncryptionKey.secretKey | quote }}
-          {{- end }}
-          {{- range .Values.spade.env }}
-          - name: {{ .name }}
-            {{- if .externalSecret }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ .secretName | quote }}
-                key: {{ .secretKey | quote }}
-            {{- else }}
-            value: {{ .value | quote }}
-            {{- end }}
-          {{- end }}
-        image: {{ template "spade.image" . }}
-        imagePullPolicy: {{ .Values.spade.pullPolicy }}
-        name: spade
-        tty: true
-        stdin: true
-        ports:
-          - name: spade
-            containerPort: 5000
-            protocol: TCP
-        resources:
-{{ toYaml .Values.spade.resources | indent 10 }}
+        - args:
+            - start
+          envFrom:
+            - configMapRef:
+                name: "{{ template "spade.name" . }}-env"
+          env:
+{{ include "spade.env" . | indent 12 }}
+          image: {{ template "spade.image" . }}
+          imagePullPolicy: {{ .Values.spade.pullPolicy }}
+          name: spade
+          tty: true
+          stdin: true
+          ports:
+            - name: spade
+              containerPort: 5000
+              protocol: TCP
+          resources:
+{{ toYaml .Values.spade.resources | indent 12 }}
       initContainers:
-      - args:
-          - migrate
-        envFrom:
-          - configMapRef:
-              name: "{{ template "spade.name" . }}-env"
-        env:
-          {{- if .Values.postgresql.auth.password.externalSecret }}
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.postgresql.auth.password.secretName | quote }}
-                key: {{ .Values.postgresql.auth.password.secretKey | quote }}
-          {{- end }}
-          {{- if .Values.spade.django.secretKey.externalSecret }}
-          - name: DJANGO_SECRET_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.spade.django.secretKey.secretName | quote }}
-                key: {{ .Values.spade.django.secretKey.secretKey | quote }}
-          {{- end }}
-          {{- if .Values.spade.django.fieldEncryptionKey.externalSecret }}
-          - name: FIELD_ENCRYPTION_KEY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.spade.django.fieldEncryptionKey.secretName | quote }}
-                key: {{ .Values.spade.django.fieldEncryptionKey.secretKey | quote }}
-          {{- end }}
-          {{- range .Values.spade.env }}
-          - name: {{ .name }}
-            {{- if .externalSecret }}
-            valueFrom:
-              secretKeyRef:
-                name: {{ .secretName | quote }}
-                key: {{ .secretKey | quote }}
-            {{- else }}
-            value: {{ .value | quote }}
-            {{- end }}
-          {{- end }}
-        image: {{ template "spade.image" . }}
-        imagePullPolicy: {{ .Values.spade.pullPolicy }}
-        name: spade-init
-        tty: true
-        stdin: true
-        ports:
-          - name: spade
-            containerPort: 5000
-            protocol: TCP
-        resources:
-{{ toYaml .Values.spade.resources | indent 10 }}
+        - args:
+            - migrate
+          envFrom:
+            - configMapRef:
+                name: "{{ template "spade.name" . }}-env"
+          env:
+{{ include "spade.env" . | indent 12 }}
+          image: {{ template "spade.image" . }}
+          imagePullPolicy: {{ .Values.spade.pullPolicy }}
+          name: spade-init
+          tty: true
+          stdin: true
+          ports:
+            - name: spade
+              containerPort: 5000
+              protocol: TCP
+          resources:
+{{ toYaml .Values.spade.resources | indent 12 }}
       restartPolicy: Always
       {{- if .Values.spade.nodeSelector }}
       nodeSelector:
