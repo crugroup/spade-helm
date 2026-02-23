@@ -8,14 +8,7 @@ docker:
 
 
 spade:
-  env:
-    - name: foo
-      externalSecret: false
-      value: bar
-    - name: baz
-      externalSecret: true
-      secretName: spade-secrets
-      secretKey: qux
+  env: []
   django:
     adminUrl: admin/
     allowedHosts: ""
@@ -27,9 +20,8 @@ spade:
       externalSecret: false
       value: Srxt2kGXi0ErSF1ApgK5ZJyMDNHyetTLbaa67tPitMtl9cdpkwnDTTDZCjsGDlIO
     fieldEncryptionKey:
-      externalSecret: true
-      secretName: spade-secrets
-      secretKey: django-field-encryption-key
+      externalSecret: false
+      value: SFlac1ZScXpYQ1c4dWl6ZVFrWks5R3drOUhJakpPdHI=
 
   pullPolicy: Always
   priorityClassName: ""
@@ -38,6 +30,7 @@ spade:
   tolerations: []
   resources: {}
   replicas: 1
+  revisionHistoryLimit: 10
   podDisruptionBudget:
     enabled: false
     config:
@@ -53,6 +46,7 @@ spadeUI:
   tolerations: []
   resources: {}
   replicas: 1
+  revisionHistoryLimit: 10
   podDisruptionBudget:
     enabled: false
     config:
