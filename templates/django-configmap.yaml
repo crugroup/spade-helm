@@ -5,26 +5,26 @@ metadata:
   labels:
     app: spade
 data:
-  POSTGRES_HOST: "{{ template "spade.postgresql.host" . }}"
-  POSTGRES_USER: "{{ .Values.postgresql.auth.username }}"
-  POSTGRES_PORT: "{{ .Values.postgresql.service.port }}"
-  POSTGRES_DB: "{{ .Values.postgresql.auth.database }}"
+  POSTGRES_HOST: {{ include "spade.postgresql.host" . | quote }}
+  POSTGRES_USER: {{ .Values.postgresql.auth.username | quote }}
+  POSTGRES_PORT: {{ .Values.postgresql.service.port | quote }}
+  POSTGRES_DB: {{ .Values.postgresql.auth.database | quote }}
   {{- if not .Values.postgresql.auth.password.externalSecret }}
-  POSTGRES_PASSWORD: "{{ .Values.postgresql.auth.password.value }}"
+  POSTGRES_PASSWORD: {{ .Values.postgresql.auth.password.value | quote }}
   {{- end }}
-  DJANGO_ADMIN_URL: "{{ .Values.spade.django.adminUrl }}"
-  DJANGO_ALLOWED_HOSTS: "{{ .Values.ingress.spade.host }}{{ if .Values.spade.django.allowedHosts }},{{ .Values.spade.django.allowedHosts }}{{ end }}"
-  FRONTEND_EXTERNAL_URL: "https://{{ .Values.ingress.spadeUI.host }}"
-  DJANGO_COLLECTFAST_STRATEGY: "{{ .Values.spade.django.collectFastStrategy }}"
+  DJANGO_ADMIN_URL: {{ .Values.spade.django.adminUrl | quote }}
+  DJANGO_ALLOWED_HOSTS: {{ include "spade.django.allowedHosts" . | quote }}
+  FRONTEND_EXTERNAL_URL: {{ printf "https://%s" .Values.ingress.spadeUI.host | quote }}
+  DJANGO_COLLECTFAST_STRATEGY: {{ .Values.spade.django.collectFastStrategy | quote }}
   {{- if not .Values.spade.django.secretKey.externalSecret }}
-  DJANGO_SECRET_KEY: "{{ .Values.spade.django.secretKey.value }}"
+  DJANGO_SECRET_KEY: {{ .Values.spade.django.secretKey.value | quote }}
   {{- end }}
-  DJANGO_SETTINGS_MODULE: "{{ .Values.spade.django.settingsModule }}"
-  DJANGO_SECURE_SSL_REDIRECT: "{{ .Values.spade.django.ssl.redirect }}"
-  DJANGO_SITE_DOMAIN: "{{ .Values.ingress.spadeUI.host }}"
+  DJANGO_SETTINGS_MODULE: {{ .Values.spade.django.settingsModule | quote }}
+  DJANGO_SECURE_SSL_REDIRECT: {{ .Values.spade.django.ssl.redirect | quote }}
+  DJANGO_SITE_DOMAIN: {{ .Values.ingress.spadeUI.host | quote }}
   {{- if not .Values.spade.django.fieldEncryptionKey.externalSecret }}
-  FIELD_ENCRYPTION_KEY: "{{ .Values.spade.django.fieldEncryptionKey.value }}"
+  FIELD_ENCRYPTION_KEY: {{ .Values.spade.django.fieldEncryptionKey.value | quote }}
   {{- end }}
   {{- range $setting, $option := .Values.environment }}
-  {{ $setting }}: "{{ $option }}"
+  {{ $setting }}: {{ $option | quote }}
   {{- end }}

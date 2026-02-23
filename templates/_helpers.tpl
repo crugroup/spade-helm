@@ -19,6 +19,10 @@
 {{- end -}}
 {{- end -}}
 
+{{- define "spade.django.allowedHosts" -}}
+{{- concat (list .Values.ingress.spade.host) .Values.spade.django.allowedHosts | compact | join "," -}}
+{{- end -}}
+
 {{- define "spade.env" -}}
 {{- $env := .Values.spade.env -}}
 
