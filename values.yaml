@@ -37,10 +37,11 @@ spade:
   affinity: {}
   tolerations: []
   resources: {}
+  replicas: 1
   podDisruptionBudget:
     enabled: false
     config:
-      minAvailable: 1
+      maxUnavailable: 1
 
 
 spadeUI:
@@ -51,15 +52,11 @@ spadeUI:
   affinity: {}
   tolerations: []
   resources: {}
+  replicas: 1
   podDisruptionBudget:
     enabled: false
     config:
-      minAvailable: 1
-
-worker:
-  replicas: 1
-  nodeSelector: {}
-  resources: {}
+      maxUnavailable: 1
 
 ingress:
   className: nginx

@@ -4,7 +4,7 @@ kind: PodDisruptionBudget
 metadata:
   name: {{ template "spade.name" . }}-ui-pdb
 spec:
-  minAvailable: {{ .Values.spadeUI.podDisruptionBudget.config.minAvailable }}
+  {{- toYaml .Values.spadeUI.podDisruptionBudget.config | nindent 2 }}
   selector:
     matchLabels:
       component: spade-ui

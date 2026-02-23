@@ -7,7 +7,7 @@ metadata:
     component: spade
     release: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.worker.replicas }}
+  replicas: {{ .Values.spade.replicas }}
   strategy: {}
   selector:
     matchLabels:
