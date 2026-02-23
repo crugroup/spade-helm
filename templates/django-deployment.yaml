@@ -112,7 +112,7 @@ spec:
           {{- end }}
         image: {{ template "spade.image" . }}
         imagePullPolicy: {{ .Values.spade.pullPolicy }}
-        name: spade
+        name: spade-init
         tty: true
         stdin: true
         ports:
