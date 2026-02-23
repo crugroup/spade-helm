@@ -22,7 +22,7 @@ spec:
         release: {{ .Release.Name }}
     spec:
       containers:
-      - args:
+      - args: []
         envFrom:
           - configMapRef:
               name: "{{ template "spade.name" . }}-env"
@@ -37,9 +37,9 @@ spec:
         imagePullPolicy: {{ .Values.spadeUI.pullPolicy }}
         name: "{{ template "spade.name" . }}-ui"
         ports:
-        - name: ui
-          containerPort: 80
-          protocol: TCP
+          - name: ui
+            containerPort: 80
+            protocol: TCP
         resources:
 {{ toYaml .Values.spadeUI.resources | indent 10 }}
       restartPolicy: Always
