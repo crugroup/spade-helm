@@ -18,3 +18,56 @@
     {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "spade.env" -}}
+{{- $env := .Values.spade.env -}}
+
+{{- if .Values.postgresql.auth.password.externalSecret -}}
+{{- $env = append $env (dict
+  "name" "POSTGRES_PASSWORD"
+  "valueFrom" (dict
+    "secretKeyRef" (dict
+      "name" .Values.postgresql.auth.password.secretName
+      "key"  .Values.postgresql.auth.password.secretKey
+    )
+  )
+) -}}
+{{- end -}}
+
+{{- if .Values.spade.django.secretKey.externalSecret -}}
+{{- $env = append $env (dict
+  "name" "DJANGO_SECRET_KEY"
+  "valueFrom" (dict
+    "secretKeyRef" (dict
+      "name" .Values.spade.django.secretKey.secretName
+      "key"  .Values.spade.django.secretKey.secretKey
+    )
+  )
+) -}}
+{{- end -}}
+
+{{- if .Values.spade.django.fieldEncryptionKey.externalSecret -}}
+{{- $env = append $env (dict
+  "name" "FIELD_ENCRYPTION_KEY"
+  "valueFrom" (dict
+    "secretKeyRef" (dict
+      "name" .Values.spade.django.fieldEncryptionKey.secretName
+      "key"  .Values.spade.django.fieldEncryptionKey.secretKey
+    )
+  )
+) -}}
+{{- end -}}
+
+{{- toYaml $env -}}
+{{- end -}}
+
+{{- define "spadeUI.env" -}}
+{{- $env := .Values.spadeUI.env -}}
+
+{{- $env = append $env (dict
+  "name" "VITE_BACKEND_BASE_URL"
+  "value" (printf "https://%s/api/v1" .Values.ingress.spade.host)
+) -}}
+
+{{- toYaml $env -}}
+{{- end -}}
