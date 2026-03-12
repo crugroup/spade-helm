@@ -21,6 +21,9 @@ spec:
         app: {{ template "spade.name" . }}
         component: "{{ template "spade.name" . }}-ui"
         release: {{ .Release.Name }}
+        {{- range $setting, $option := .Values.spadeUI.labels }}
+        {{ $setting | quote }}: {{ $option | quote }}
+        {{- end }}
     spec:
       containers:
         - args: []
